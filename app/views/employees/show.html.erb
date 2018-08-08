@@ -21,7 +21,8 @@
    
    <%= form_for(@duty) do |f| %>
     <div>
-      <%= f.text_area :description, placeholder: "Enter new duty...#{@employee.id}" %>
+      <%= f.text_area :description, placeholder: "Enter new duty...." %>
+      <%= DutiesController.set_employee @employee%>
     </div>
     <%= f.submit "New", class: "btn btn-primary" %>
   <% end %>

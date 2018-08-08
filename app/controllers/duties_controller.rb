@@ -1,9 +1,10 @@
 class DutiesController < ApplicationController
     def create
-        @duty = current_user.duties.build(duty_params)
+        @duty = @@employee.duties.build(duty_params)
         if @duty.save
             flash[:success] = "Duty created!"
-            redirect_to root_url
+            #redirect_to employees_url
+            redirect_back(fallback_location: employees_url)
         else
             render 'employee#index'
         end
@@ -12,8 +13,10 @@ class DutiesController < ApplicationController
     def destroy
     end
 
-    def set_employee(employee)
-        @employee = employee
+
+    def self.set_employee(employee)
+        @@employee = employee
+        ""
     end
 
     
@@ -22,6 +25,7 @@ class DutiesController < ApplicationController
         def duty_params
             params.require(:duty).permit(:description)
         end
+    
         
         def current_user()
             Employee.find_by(id: 1)
